@@ -43,8 +43,19 @@
         <div class="cars-grid">
             {% for car in cars %}
             <div class="car-card">
-                {% if car.image %}
-                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" class="car-image">
+                {% load static %}
+                {% if car.brand == 'Hyundai' and car.model == 'Sonata' %}
+                    <img src="{% static 'images/cars/hyundai-sonata.svg' %}" alt="{{ car.brand }} {{ car.model }}" class="car-image">
+                {% elif car.brand == 'Kia' and car.model == 'Rio' %}
+                    <img src="{% static 'images/cars/kia-rio.svg' %}" alt="{{ car.brand }} {{ car.model }}" class="car-image">
+                {% elif car.brand == 'Genesis' and car.model == 'G80' %}
+                    <img src="{% static 'images/cars/genesis-g80.svg' %}" alt="{{ car.brand }} {{ car.model }}" class="car-image">
+                {% elif car.brand == 'Hyundai' and car.model == 'Tucson' %}
+                    <img src="{% static 'images/cars/hyundai-tucson.svg' %}" alt="{{ car.brand }} {{ car.model }}" class="car-image">
+                {% elif car.brand == 'Kia' and car.model == 'Sportage' %}
+                    <img src="{% static 'images/cars/kia-sportage.svg' %}" alt="{{ car.brand }} {{ car.model }}" class="car-image">
+                {% elif car.brand == 'Genesis' and car.model == 'GV70' %}
+                    <img src="{% static 'images/cars/genesis-gv70.svg' %}" alt="{{ car.brand }} {{ car.model }}" class="car-image">
                 {% else %}
                     <div class="car-image" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
                         <i class="fas fa-car" style="font-size: 3rem; color: #ccc;"></i>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Скрипт для добавления автомобилей с изображениями из media/cars
+Скрипт для добавления автомобилей с изображениями
 """
 
 import os
@@ -13,7 +13,7 @@ django.setup()
 from shop.models import Car
 
 def add_cars_with_images():
-    """Добавляет автомобили с изображениями из media/cars"""
+    """Добавляет автомобили с изображениями"""
     
     # Очищаем существующие автомобили
     Car.objects.all().delete()
@@ -30,7 +30,6 @@ def add_cars_with_images():
             'fuel_type': 'gasoline',
             'price': 2500000,
             'is_available': True,
-            'image': 'cars/1.webp'
         },
         {
             'brand': 'Kia',
@@ -41,7 +40,6 @@ def add_cars_with_images():
             'fuel_type': 'gasoline',
             'price': 1800000,
             'is_available': True,
-            'image': 'cars/2.webp'
         },
         {
             'brand': 'Genesis',
@@ -52,7 +50,6 @@ def add_cars_with_images():
             'fuel_type': 'gasoline',
             'price': 4500000,
             'is_available': True,
-            'image': 'cars/3.webp'
         },
         {
             'brand': 'Hyundai',
@@ -63,7 +60,6 @@ def add_cars_with_images():
             'fuel_type': 'hybrid',
             'price': 3200000,
             'is_available': True,
-            'image': 'cars/4.webp'
         },
         {
             'brand': 'Kia',
@@ -74,7 +70,6 @@ def add_cars_with_images():
             'fuel_type': 'diesel',
             'price': 2800000,
             'is_available': True,
-            'image': 'cars/5.webp'
         },
         {
             'brand': 'Genesis',
@@ -85,7 +80,6 @@ def add_cars_with_images():
             'fuel_type': 'gasoline',
             'price': 5200000,
             'is_available': True,
-            'image': 'cars/6.webp'
         },
         {
             'brand': 'Hyundai',
@@ -96,7 +90,6 @@ def add_cars_with_images():
             'fuel_type': 'hybrid',
             'price': 3800000,
             'is_available': True,
-            'image': 'cars/7.webp'
         },
         {
             'brand': 'Kia',
@@ -107,7 +100,6 @@ def add_cars_with_images():
             'fuel_type': 'gasoline',
             'price': 2200000,
             'is_available': True,
-            'image': 'cars/8.webp'
         },
         {
             'brand': 'Genesis',
@@ -118,7 +110,6 @@ def add_cars_with_images():
             'fuel_type': 'gasoline',
             'price': 6500000,
             'is_available': True,
-            'image': 'cars/9.webp'
         },
         {
             'brand': 'Hyundai',
@@ -129,7 +120,6 @@ def add_cars_with_images():
             'fuel_type': 'gasoline',
             'price': 1900000,
             'is_available': True,
-            'image': 'cars/10.webp'
         },
         {
             'brand': 'Kia',
@@ -140,7 +130,6 @@ def add_cars_with_images():
             'fuel_type': 'diesel',
             'price': 3500000,
             'is_available': True,
-            'image': 'cars/11.webp'
         },
         {
             'brand': 'Genesis',
@@ -151,22 +140,13 @@ def add_cars_with_images():
             'fuel_type': 'gasoline',
             'price': 5800000,
             'is_available': True,
-            'image': 'cars/12.webp'
         },
     ]
     
-    # Создаем автомобили с изображениями
+    # Создаем автомобили
     for i, data in enumerate(cars_data):
-        # Проверяем существование файла изображения
-        image_path = os.path.join('media', data['image'])
-        if os.path.exists(image_path):
-            car = Car.objects.create(**data)
-            print(f"✅ Добавлен: {car.brand} {car.model} ({car.year}) - {car.price:,} ₽ - {data['image']}")
-        else:
-            # Создаем без изображения, если файл не найден
-            image_path = data.pop('image')
-            car = Car.objects.create(**data)
-            print(f"⚠️ Добавлен без изображения: {car.brand} {car.model} ({car.year}) - {car.price:,} ₽ (файл {image_path} не найден)")
+        car = Car.objects.create(**data)
+        print(f"✅ Добавлен: {car.brand} {car.model} ({car.year}) - {car.price:,} ₽")
     
     # Проверяем количество автомобилей
     total_cars = Car.objects.count()
@@ -175,8 +155,7 @@ def add_cars_with_images():
     # Показываем все автомобили
     print("\n📋 Список всех автомобилей:")
     for car in Car.objects.all():
-        image_status = "✅" if car.image else "❌"
-        print(f"  {image_status} {car.brand} {car.model} ({car.year}) - {car.price:,} ₽")
+        print(f"  - {car.brand} {car.model} ({car.year}) - {car.price:,} ₽")
 
 if __name__ == '__main__':
     add_cars_with_images() 

@@ -7,5 +7,8 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 python manage.py migrate
 
+# Создание изображений
+python create_images.py
+
 # Добавление автомобилей с изображениями
 python add_cars_with_images.py 
