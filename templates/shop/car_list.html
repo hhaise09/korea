@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Каталог автомобилей - Korean Cars Shop{% endblock %}
+
+{% block content %}
+<div class="shop-header">
+    <div class="container">
+        <h1>Каталог автомобилей</h1>
+        <p>Найдите свой идеальный автомобиль из Кореи</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Filters -->
+    <div class="filters">
+        <form method="get" class="filter-form">
+            <div class="form-group">
+                <label for="search">Поиск</label>
+                <input type="text" name="search" id="search" class="form-control" value="{{ search_query }}" placeholder="Марка, модель...">
+            </div>
+            <div class="form-group">
+                <label for="sort">Сортировка</label>
+                <select name="sort" id="sort" class="form-control">
+                    <option value="created_at" {% if sort_by == 'created_at' %}selected{% endif %}>По дате добавления</option>
+                    <option value="price" {% if sort_by == 'price' %}selected{% endif %}>По цене (возрастание)</option>
+                    <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>По цене (убывание)</option>
+                    <option value="year" {% if sort_by == 'year' %}selected{% endif %}>По году выпуска</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn-primary">Применить фильтры</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Results count -->
+    <div style="margin-bottom: 2rem;">
+        <p>Найдено автомобилей: {{ cars.count }}</p>
+    </div>
+
+    <!-- Cars Grid -->
+    {% if cars %}
+        <div class="cars-grid">
+            {% for car in cars %}
+            <div class="car-card">
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" class="car-image">
+                {% else %}
+                    <div class="car-image" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-car" style="font-size: 3rem; color: #ccc;"></i>
+                    </div>
+                {% endif %}
+                <div class="car-info">
+                    <h3 class="car-title">{{ car.brand }} {{ car.model }}</h3>
+                    <div class="car-price">{{ car.price|floatformat:0 }} ₽</div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-calendar"></i> {{ car.year }}</span>
+                        <span><i class="fas fa-road"></i> {{ car.mileage|floatformat:0 }} км</span>
+                        <span><i class="fas fa-cog"></i> {{ car.get_transmission_display }}</span>
+                        <span><i class="fas fa-gas-pump"></i> {{ car.get_fuel_type_display }}</span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <a href="{% url 'shop:car_detail' car.id %}" class="btn" style="flex: 1; text-align: center;">Подробнее</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'shop:order_car' car.id %}" class="btn" style="flex: 1; text-align: center; background-color: #333;">Заказать</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 4rem 0;">
+            <i class="fas fa-search" style="font-size: 4rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <h3>Автомобили не найдены</h3>
+            <p>Попробуйте изменить параметры поиска или фильтры</p>
+            <a href="{% url 'shop:car_list' %}" class="btn">Сбросить фильтры</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

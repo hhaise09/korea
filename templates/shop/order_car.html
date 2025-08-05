@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Оформление заказа - {{ car.brand }} {{ car.model }}{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 0;">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Оформление заказа</h1>
+        
+        <!-- Car Summary -->
+        <div style="background-color: #f8f8f8; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+            <h3>Выбранный автомобиль</h3>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
+                {% else %}
+                    <div style="width: 100%; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                        <i class="fas fa-car" style="font-size: 3rem; color: #ccc;"></i>
+                    </div>
+                {% endif %}
+                <div>
+                    <h4>{{ car.brand }} {{ car.model }}</h4>
+                    <p><strong>Цена:</strong> {{ car.price|floatformat:0 }} ₽</p>
+                    <p><strong>Год:</strong> {{ car.year }}</p>
+                    <p><strong>Пробег:</strong> {{ car.mileage|floatformat:0 }} км</p>
+                    <p><strong>Трансмиссия:</strong> {{ car.get_transmission_display }}</p>
+                    <p><strong>Топливо:</strong> {{ car.get_fuel_type_display }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Form -->
+        <div style="background-color: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+            <h3>Информация о заказе</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="comment">Комментарий к заказу (необязательно):</label>
+                    <textarea name="comment" id="comment" class="form-textarea" placeholder="Укажите дополнительную информацию, пожелания или вопросы..."></textarea>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <p><strong>Важно:</strong></p>
+                    <ul style="margin-left: 1rem; color: #666;">
+                        <li>После оформления заказа наш менеджер свяжется с вами в течение 24 часов</li>
+                        <li>Вы можете указать удобное время для звонка в комментарии</li>
+                        <li>Все вопросы по автомобилю можно задать при оформлении заказа</li>
+                    </ul>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn-primary" style="flex: 1;">Подтвердить заказ</button>
+                    <a href="{% url 'shop:car_detail' car.id %}" class="btn btn-outline" style="flex: 1; text-align: center;">Назад к автомобилю</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

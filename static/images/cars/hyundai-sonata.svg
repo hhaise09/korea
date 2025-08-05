@@ -1,0 +1,8 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="#f0f0f0"/>
+  <rect x="50" y="80" width="300" height="80" fill="#333" rx="10"/>
+  <rect x="60" y="90" width="280" height="60" fill="#666" rx="5"/>
+  <circle cx="100" cy="150" r="15" fill="#000"/>
+  <circle cx="300" cy="150" r="15" fill="#000"/>
+  <text x="200" y="120" text-anchor="middle" fill="#fff" font-family="Arial" font-size="16">Hyundai Sonata</text>
+</svg> 

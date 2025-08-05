@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои заказы - Korean Cars Shop{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 0;">
+    <h1 style="text-align: center; margin-bottom: 2rem;">Мои заказы</h1>
+    
+    {% if orders %}
+        <div style="display: grid; gap: 2rem;">
+            {% for order in orders %}
+            <div style="background-color: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); overflow: hidden;">
+                <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 2rem; padding: 2rem;">
+                    <!-- Car Image -->
+                    <div>
+                        {% if order.car.image %}
+                            <img src="{{ order.car.image.url }}" alt="{{ order.car.brand }} {{ order.car.model }}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                        {% else %}
+                            <div style="width: 100%; height: 150px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                                <i class="fas fa-car" style="font-size: 2rem; color: #ccc;"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Car Info -->
+                    <div>
+                        <h3>{{ order.car.brand }} {{ order.car.model }}</h3>
+                        <p><strong>Цена:</strong> {{ order.car.price|floatformat:0 }} ₽</p>
+                        <p><strong>Год:</strong> {{ order.car.year }}</p>
+                        <p><strong>Пробег:</strong> {{ order.car.mileage|floatformat:0 }} км</p>
+                        <p><strong>Трансмиссия:</strong> {{ order.car.get_transmission_display }}</p>
+                        <p><strong>Топливо:</strong> {{ order.car.get_fuel_type_display }}</p>
+                    </div>
+                    
+                    <!-- Order Info -->
+                    <div>
+                        <div style="margin-bottom: 1rem;">
+                            <strong>Статус заказа:</strong>
+                            <span style="
+                                display: inline-block;
+                                padding: 0.25rem 0.75rem;
+                                border-radius: 20px;
+                                font-size: 0.9rem;
+                                font-weight: 500;
+                                {% if order.status == 'new' %}background-color: #e3f2fd; color: #1976d2;{% endif %}
+                                {% if order.status == 'confirmed' %}background-color: #fff3e0; color: #f57c00;{% endif %}
+                                {% if order.status == 'processing' %}background-color: #e8f5e8; color: #388e3c;{% endif %}
+                                {% if order.status == 'completed' %}background-color: #e8f5e8; color: #388e3c;{% endif %}
+                                {% if order.status == 'cancelled' %}background-color: #ffebee; color: #d32f2f;{% endif %}
+                            ">
+                                {% if order.status == 'new' %}Новый{% endif %}
+                                {% if order.status == 'confirmed' %}Подтвержден{% endif %}
+                                {% if order.status == 'processing' %}В обработке{% endif %}
+                                {% if order.status == 'completed' %}Завершен{% endif %}
+                                {% if order.status == 'cancelled' %}Отменен{% endif %}
+                            </span>
+                        </div>
+                        
+                        <p><strong>Дата заказа:</strong><br>{{ order.created_at|date:"d.m.Y H:i" }}</p>
+                        <p><strong>Последнее обновление:</strong><br>{{ order.updated_at|date:"d.m.Y H:i" }}</p>
+                        
+                        {% if order.comment %}
+                            <div style="margin-top: 1rem;">
+                                <strong>Комментарий:</strong>
+                                <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">{{ order.comment }}</p>
+                            </div>
+                        {% endif %}
+                        
+                        <div style="margin-top: 1rem;">
+                            <a href="{% url 'shop:car_detail' order.car.id %}" class="btn" style="width: 100%; text-align: center;">Посмотреть автомобиль</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 4rem 0;">
+            <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <h3>У вас пока нет заказов</h3>
+            <p>Перейдите в каталог, чтобы выбрать автомобиль</p>
+            <a href="{% url 'shop:car_list' %}" class="btn">Перейти в каталог</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

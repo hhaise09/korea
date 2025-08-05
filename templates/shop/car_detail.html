@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ car.brand }} {{ car.model }} - Korean Cars Shop{% endblock %}
+
+{% block content %}
+<div class="car-detail">
+    <div class="container">
+        <div class="car-detail-grid">
+            <!-- Car Gallery -->
+            <div class="car-gallery">
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" class="car-main-image">
+                {% else %}
+                    <div class="car-main-image" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-car" style="font-size: 4rem; color: #ccc;"></i>
+                    </div>
+                {% endif %}
+                
+                <!-- Additional Images -->
+                {% if car.images.all %}
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                        {% for image in car.images.all %}
+                            <img src="{{ image.image.url }}" alt="{{ car.brand }} {{ car.model }}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 5px; cursor: pointer;">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Car Info -->
+            <div class="car-info-detail">
+                <h1>{{ car.brand }} {{ car.model }}</h1>
+                <div class="car-price-detail">{{ car.price|floatformat:0 }} ₽</div>
+                
+                <!-- Specifications -->
+                <div class="car-specs-detail">
+                    <div class="spec-item">
+                        <span class="spec-label">Год выпуска:</span>
+                        <span class="spec-value">{{ car.year }}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Пробег:</span>
+                        <span class="spec-value">{{ car.mileage|floatformat:0 }} км</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Трансмиссия:</span>
+                        <span class="spec-value">{{ car.get_transmission_display }}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Тип топлива:</span>
+                        <span class="spec-value">{{ car.get_fuel_type_display }}</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'shop:order_car' car.id %}" class="btn" style="flex: 1; text-align: center;">Заказать автомобиль</a>
+                    {% else %}
+                        <a href="{% url 'admin:login' %}" class="btn" style="flex: 1; text-align: center;">Войти для заказа</a>
+                    {% endif %}
+                    <a href="{% url 'shop:car_list' %}" class="btn btn-outline" style="flex: 1; text-align: center;">Назад к каталогу</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Form -->
+        {% if user.is_authenticated %}
+            <div class="order-form">
+                <h3>Оформить заказ</h3>
+                <form method="post" action="{% url 'shop:order_car' car.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="comment">Комментарий к заказу (необязательно):</label>
+                        <textarea name="comment" id="comment" class="form-textarea" placeholder="Укажите дополнительную информацию..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Оформить заказ</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 
