@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-k)*_e0an)%hioqfe0_o+$&z0n+#c7ug!%9^2ym(jnwo-f6@k#9')
+SECRET_KEY = 'django-insecure-k)*_e0an)%hioqfe0_o+$&z0n+#c7ug!%9^2ym(jnwo-f6@k#9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = True
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,.render.com').split(',')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.render.com', 'korea-tisl.onrender.com']
 
 
 # Application definition
@@ -83,11 +82,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# Production database configuration
-if not DEBUG:
-    import dj_database_url
-    DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'))
 
 
 # Password validation
