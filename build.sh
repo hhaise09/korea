@@ -6,6 +6,9 @@ pip install -r requirements.txt
 
 python manage.py migrate
 
+# Создаем папку media если её нет
+mkdir -p media/cars
+
 # Импорт данных если есть экспорт
 if [ -f "export_data/cars_data.json" ]; then
     echo "Импорт данных с изображениями..."

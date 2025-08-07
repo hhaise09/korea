@@ -118,9 +118,13 @@ def import_cars_data():
                 car.image = django_path
                 car.save()
                 
-                # Копируем файл в media папку
-                media_cars_dir = Path('media/cars')
+                # Создаем все необходимые папки
+                media_dir = Path('media')
+                media_dir.mkdir(exist_ok=True)
+                media_cars_dir = media_dir / 'cars'
                 media_cars_dir.mkdir(exist_ok=True)
+                
+                # Копируем файл в media папку
                 media_image_path = media_cars_dir / car_data['main_image']
                 shutil.copy2(image_path, media_image_path)
                 print(f"Импортировано главное изображение: {car_data['main_image']}")
@@ -138,9 +142,13 @@ def import_cars_data():
                 car_image.image = django_path
                 car_image.save()
                 
-                # Копируем файл в media папку
-                media_cars_dir = Path('media/cars')
+                # Создаем все необходимые папки
+                media_dir = Path('media')
+                media_dir.mkdir(exist_ok=True)
+                media_cars_dir = media_dir / 'cars'
                 media_cars_dir.mkdir(exist_ok=True)
+                
+                # Копируем файл в media папку
                 media_image_path = media_cars_dir / img_data['filename']
                 shutil.copy2(image_path, media_image_path)
                 print(f"Импортировано дополнительное изображение: {img_data['filename']}")
