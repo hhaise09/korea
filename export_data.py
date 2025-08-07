@@ -46,18 +46,23 @@ def export_cars_data():
         
         # Экспортируем изображения
         if car.image:
-            image_filename = f"car_{car.id}_main.jpg"
+            # Получаем оригинальное имя файла
+            original_filename = os.path.basename(car.image.name)
+            # Создаем новое имя для экспорта
+            image_filename = f"car_{car.id}_main{os.path.splitext(original_filename)[1]}"
             image_path = images_dir / image_filename
             
             # Копируем файл
             if car.image.path and os.path.exists(car.image.path):
                 shutil.copy2(car.image.path, image_path)
                 car_data['main_image'] = image_filename
+                print(f"Экспортировано главное изображение: {image_filename}")
         
         # Экспортируем дополнительные изображения
         for car_image in car.images.all():
             if car_image.image:
-                image_filename = f"car_{car.id}_image_{car_image.id}.jpg"
+                original_filename = os.path.basename(car_image.image.name)
+                image_filename = f"car_{car.id}_image_{car_image.id}{os.path.splitext(original_filename)[1]}"
                 image_path = images_dir / image_filename
                 
                 if car_image.image.path and os.path.exists(car_image.image.path):
@@ -66,6 +71,7 @@ def export_cars_data():
                         'filename': image_filename,
                         'is_main': car_image.is_main
                     })
+                    print(f"Экспортировано дополнительное изображение: {image_filename}")
         
         cars_data.append(car_data)
     
@@ -107,19 +113,37 @@ def import_cars_data():
         if 'main_image' in car_data:
             image_path = images_dir / car_data['main_image']
             if image_path.exists():
-                with open(image_path, 'rb') as img_file:
-                    car.image.save(car_data['main_image'], File(img_file), save=True)
+                # Создаем правильный путь для Django
+                django_path = f"cars/{car_data['main_image']}"
+                car.image = django_path
+                car.save()
+                
+                # Копируем файл в media папку
+                media_cars_dir = Path('media/cars')
+                media_cars_dir.mkdir(exist_ok=True)
+                media_image_path = media_cars_dir / car_data['main_image']
+                shutil.copy2(image_path, media_image_path)
+                print(f"Импортировано главное изображение: {car_data['main_image']}")
         
         # Импортируем дополнительные изображения
         for img_data in car_data['images']:
             image_path = images_dir / img_data['filename']
             if image_path.exists():
+                # Создаем правильный путь для Django
+                django_path = f"cars/{img_data['filename']}"
                 car_image = CarImage.objects.create(
                     car=car,
                     is_main=img_data['is_main']
                 )
-                with open(image_path, 'rb') as img_file:
-                    car_image.image.save(img_data['filename'], File(img_file), save=True)
+                car_image.image = django_path
+                car_image.save()
+                
+                # Копируем файл в media папку
+                media_cars_dir = Path('media/cars')
+                media_cars_dir.mkdir(exist_ok=True)
+                media_image_path = media_cars_dir / img_data['filename']
+                shutil.copy2(image_path, media_image_path)
+                print(f"Импортировано дополнительное изображение: {img_data['filename']}")
     
     print(f"Импортировано {len(cars_data)} автомобилей")
 

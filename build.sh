@@ -10,6 +10,7 @@ python manage.py migrate
 if [ -f "export_data/cars_data.json" ]; then
     echo "Импорт данных с изображениями..."
     python export_data.py import
+    echo "Данные успешно импортированы!"
 else
     echo "Файл экспорта не найден, создание демо данных..."
     # Создание изображений
