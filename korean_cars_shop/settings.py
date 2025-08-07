@@ -130,6 +130,13 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Static files configuration for production
 if IS_PRODUCTION:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # Настройка whitenoise для обслуживания медиафайлов
+    WHITENOISE_USE_FINDERS = True
+    WHITENOISE_AUTOREFRESH = True
+    # Добавляем медиафайлы в whitenoise
+    WHITENOISE_ROOT = BASE_DIR / 'media'
+    # Настройка для обслуживания медиафайлов
+    WHITENOISE_INDEX_FILE = True
 
 # Media files
 MEDIA_URL = '/media/'

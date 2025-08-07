@@ -22,4 +22,12 @@ else
     python add_cars_with_images.py
 fi
 
-python manage.py collectstatic --no-input 
+# Собираем статические файлы
+python manage.py collectstatic --no-input
+
+# Копируем медиафайлы в статические файлы для whitenoise
+if [ -d "media" ]; then
+    echo "Копирование медиафайлов в статические файлы..."
+    cp -r media/* staticfiles/
+    echo "Медиафайлы скопированы в staticfiles/"
+fi 
