@@ -6,6 +6,10 @@ import sys
 
 def main():
     """Run administrative tasks."""
+    # Set default environment for local development
+    if not os.environ.get('ENVIRONMENT'):
+        os.environ.setdefault('ENVIRONMENT', 'development')
+    
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'korean_cars_shop.settings')
     try:
         from django.core.management import execute_from_command_line

@@ -1,0 +1,168 @@
+[
+  {
+    "brand": "KIA",
+    "model": "CARNIVAL",
+    "year": 2025,
+    "mileage": 17,
+    "transmission": "automatic",
+    "fuel_type": "gasoline",
+    "price": "4080000.00",
+    "is_available": true,
+    "created_at": "2025-08-07T17:35:10.413201+00:00",
+    "images": [
+      {
+        "filename": "car_9_image_9.jpg",
+        "is_main": true
+      },
+      {
+        "filename": "car_9_image_10.jpg",
+        "is_main": false
+      }
+    ],
+    "main_image": "car_9_main.jpg"
+  },
+  {
+    "brand": "MERCEDES",
+    "model": "BENZ GLE-CLASS",
+    "year": 2025,
+    "mileage": 15,
+    "transmission": "automatic",
+    "fuel_type": "gasoline",
+    "price": "13006000.00",
+    "is_available": true,
+    "created_at": "2025-08-07T17:33:11.598160+00:00",
+    "images": [
+      {
+        "filename": "car_8_image_8.jpg",
+        "is_main": true
+      }
+    ],
+    "main_image": "car_8_main.jpg"
+  },
+  {
+    "brand": "TESLA",
+    "model": "MODEL Y",
+    "year": 2025,
+    "mileage": 72,
+    "transmission": "automatic",
+    "fuel_type": "electric",
+    "price": "4976000.00",
+    "is_available": true,
+    "created_at": "2025-08-07T17:29:35.108058+00:00",
+    "images": [
+      {
+        "filename": "car_7_image_7.jpg",
+        "is_main": true
+      }
+    ],
+    "main_image": "car_7_main.jpg"
+  },
+  {
+    "brand": "HYUNDAI",
+    "model": "STARIA",
+    "year": 2025,
+    "mileage": 108,
+    "transmission": "automatic",
+    "fuel_type": "diesel",
+    "price": "5432000.00",
+    "is_available": true,
+    "created_at": "2025-08-07T17:28:20.554327+00:00",
+    "images": [
+      {
+        "filename": "car_6_image_6.jpg",
+        "is_main": true
+      }
+    ],
+    "main_image": "car_6_main.jpg"
+  },
+  {
+    "brand": "BMW",
+    "model": "5-SERIES G60 2025",
+    "year": 2025,
+    "mileage": 20,
+    "transmission": "automatic",
+    "fuel_type": "gasoline",
+    "price": "8904000.00",
+    "is_available": true,
+    "created_at": "2025-08-07T17:25:47.278665+00:00",
+    "images": [
+      {
+        "filename": "car_5_image_5.jpg",
+        "is_main": true
+      }
+    ],
+    "main_image": "car_5_main.jpg"
+  },
+  {
+    "brand": "BMW",
+    "model": "Z4 G29 2025",
+    "year": 2025,
+    "mileage": 124,
+    "transmission": "automatic",
+    "fuel_type": "gasoline",
+    "price": "5777000.00",
+    "is_available": true,
+    "created_at": "2025-08-07T17:22:10.916105+00:00",
+    "images": [
+      {
+        "filename": "car_4_image_4.jpg",
+        "is_main": true
+      }
+    ],
+    "main_image": "car_4_main.jpg"
+  },
+  {
+    "brand": "MERCEDES",
+    "model": "BENZ GLS-CLASS X167 2025",
+    "year": 2025,
+    "mileage": 23,
+    "transmission": "automatic",
+    "fuel_type": "gasoline",
+    "price": "30425000.00",
+    "is_available": true,
+    "created_at": "2025-08-07T17:21:22.596649+00:00",
+    "images": [
+      {
+        "filename": "car_3_image_3.jpg",
+        "is_main": true
+      }
+    ],
+    "main_image": "car_3_main.jpg"
+  },
+  {
+    "brand": "GENESIS",
+    "model": "G90 RS4 GASOLINE 3.5 2025",
+    "year": 2025,
+    "mileage": 18,
+    "transmission": "automatic",
+    "fuel_type": "gasoline",
+    "price": "13751000.00",
+    "is_available": true,
+    "created_at": "2025-08-07T17:18:20.384911+00:00",
+    "images": [
+      {
+        "filename": "car_2_image_2.jpg",
+        "is_main": true
+      }
+    ],
+    "main_image": "car_2_main.jpg"
+  },
+  {
+    "brand": "MERCEDES",
+    "model": "MERCEDES BENZ G-CLASS W465 2025",
+    "year": 2025,
+    "mileage": 20,
+    "transmission": "automatic",
+    "fuel_type": "diesel",
+    "price": "28107000.00",
+    "is_available": true,
+    "created_at": "2025-08-07T17:17:33.947428+00:00",
+    "images": [
+      {
+        "filename": "car_1_image_1.jpg",
+        "is_main": true
+      }
+    ],
+    "main_image": "car_1_main.jpg"
+  }
+]
